@@ -1,3 +1,7 @@
+#Overview
+
+Sixes Wild is a game built using Eclipse similar to candy crush but with number. Use the following instructions to start enjoying the game!
+
 #To launch the "Player" application:
 	
 	1. In Eclipse, navigate to:
