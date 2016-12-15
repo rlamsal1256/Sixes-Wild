@@ -1,4 +1,4 @@
-To launch the "Player" application:
+#To launch the "Player" application:
 	
 	1. In Eclipse, navigate to:
 		src/player/SplashPlayer.java
@@ -6,13 +6,13 @@ To launch the "Player" application:
 	
 	**Try resizing the game play window**
 	
-To launch the Builder application:
+#To launch the Builder application:
 	
 	1.In Eclipse, navigate to:
 		src/builder/SplashBuilder
 	2. Run As "Java Application"
 	
-For Developers:
+#For Developers:
 
 	This SixesWILD application was designed to be flexible and easy to update/modify.
 	In order to create new levels, game modes, and behaviors, you need only write code for the additional functionality you wish to add.
