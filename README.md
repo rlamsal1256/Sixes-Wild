@@ -2,6 +2,12 @@
 
 Sixes Wild is a game built using Eclipse similar to candy crush but with numbers. Use the following instructions to start enjoying the game!
 
+#Builder Application:
+![builder](https://cloud.githubusercontent.com/assets/15883609/21215395/f5473650-c26e-11e6-9d69-e2b5d7fcfd29.PNG)
+
+#Player Application:
+![player](https://cloud.githubusercontent.com/assets/15883609/21215399/f732f882-c26e-11e6-9a11-c912d42755b2.PNG)
+
 #To launch the "Player" application:
 	
 	1. In Eclipse, navigate to:
