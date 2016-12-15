@@ -25,7 +25,8 @@ Sixes Wild is a game built using Eclipse similar to candy crush but with numbers
 #For Developers:
 
 	This SixesWILD application was designed to be flexible and easy to update/modify.
-	In order to create new levels, game modes, and behaviors, you need only write code for the additional functionality you wish to add.
+	In order to create new levels, game modes, and behaviors, you need only write code for the additional
+	functionality you wish to add.
 	No modifications are necessary to the core framework. The following are customizable features:
 	
 	-Level Type:
@@ -38,10 +39,13 @@ Sixes Wild is a game built using Eclipse similar to candy crush but with numbers
 	
 	-Square Types:
 		Squares determine the behavior of the tiles on the board. 
-		New Square types with different behaviors can be added by creating a class which extends AbstractSquare or AbstractContainer
-		Squares which hold tiles and can pass tiles to other squares should additionally implement the ISource interface
+		New Square types with different behaviors can be added by creating a class which extends 
+		AbstractSquare or AbstractContainer
+		Squares which hold tiles and can pass tiles to other squares should additionally implement 
+		the ISource interface
 		Each square has a getDrawer() method which returns an AbstractSquareDrawer object.
-			If you wish to override the default square image drawn, you can create a new Drawer class which extends AbstractSquareDrawer
+		If you wish to override the default square image drawn, you can create a new Drawer 
+		class which extends AbstractSquareDrawer
 	
 	-Game Types: (NOT YET IMPLEMENTED)
 		Game types determine the highest level behavior of the game, such as win and loss conditions.
