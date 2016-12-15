@@ -1,0 +1,54 @@
+package builder.model;
+
+import gameModes.elimination.EliminationLevel;
+import gameModes.lightning.LightningLevel;
+import gameModes.puzzle.PuzzleLevel;
+import gameModes.release.ReleaseLevel;
+
+import java.util.Hashtable;
+
+import common.model.AbstractLevel;
+
+public class BuilderModel {
+	
+	Hashtable<String,AbstractLevel> allLevels;
+	AbstractLevel currentLevel;
+	
+	public BuilderModel(){
+		//TODO Replace this with loading levels from disk
+		allLevels=new Hashtable<String,AbstractLevel>();
+		for(int i=0;i<4;i++){
+			addLevel(new PuzzleLevel());
+			addLevel(new LightningLevel());
+			addLevel(new EliminationLevel());
+			addLevel(new ReleaseLevel());
+		}
+		currentLevel=null;
+	}
+	
+	public BuilderModel(Hashtable<String,AbstractLevel> allLevels){
+		this.allLevels=allLevels;
+	}
+	
+	public void addLevel(AbstractLevel level){
+		if(allLevels.containsKey(level.toString())){
+			allLevels.remove(level.toString());
+			allLevels.put(level.toString(), level);
+		}
+	}
+	
+	public AbstractLevel getLevel(String key){
+		if(allLevels.contains(key))
+			return allLevels.get(key);
+		System.err.println("No such level found: "+key);
+		return null;
+	}
+	
+	public AbstractLevel getCurrentLevel() {
+		return currentLevel;
+	}
+
+	public void setCurrentLevel(AbstractLevel level){
+		currentLevel=level;
+	}
+}

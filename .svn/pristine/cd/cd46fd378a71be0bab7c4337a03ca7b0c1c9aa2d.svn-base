@@ -1,0 +1,51 @@
+package gameModes.release;
+
+import common.model.AbstractContainer;
+import common.model.AbstractSquare;
+import common.model.ICopy;
+import common.model.Tile;
+import common.view.AbstractSquareDrawer;
+
+public class ReleaseSquare extends AbstractContainer {
+
+	public ReleaseSquare(int row, int column) {
+		super(row, column);
+	}
+
+	public ReleaseSquare(AbstractContainer s) {
+		super(s);
+	}
+
+	@Override
+	public boolean update() {
+		//Tile t=getFillFrom().peek();
+		Tile t=getFillFrom().takeTile();
+		if(t.getVal()==6){
+			update();
+			return true;
+		}
+		else{
+			getFillFrom().push(t);
+		}
+		return false;
+	}
+
+	@Override
+	public ReleaseSquare makeCopy() {
+		return new ReleaseSquare(this);
+	}
+
+	@Override
+	public ReleaseSquareDrawer getDrawer() {
+		return new ReleaseSquareDrawer(this);
+	}
+	
+	public static String type() {
+		return "Release Square";
+	}
+
+	public void copy(ICopy object)
+	{
+		
+	}
+}

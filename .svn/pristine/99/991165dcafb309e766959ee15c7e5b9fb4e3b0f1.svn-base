@@ -1,0 +1,71 @@
+package common.model;
+
+import player.model.AbstractGame;
+
+public abstract class AbstractLevel {
+	
+	LevelParameters params;
+	int highscore;
+	boolean unlocked;
+	int levelID;
+	
+	public AbstractLevel(){
+		highscore=0;
+		unlocked=false;
+		setID();
+	}
+	
+	public AbstractLevel(LevelParameters params){
+		this.params=params;
+		highscore=0;
+		unlocked=false;
+		levelID=setID();
+	}
+	
+	/**
+	 * This method should return a unique level ID for each new instance of the subclass
+	 * should use a static variable in each subclass to generate unique sequential Level ID numbers
+	 */
+	public abstract int setID();
+	
+	abstract public AbstractGame makeGame();
+	
+	public LevelParameters getParams() {
+		return params;
+	}
+
+	public void setParams(LevelParameters params) {
+		this.params = params;
+	}
+
+	public int getHighscore() {
+		return highscore;
+	}
+
+	public void setHighscore(int highscore) {
+		this.highscore = highscore;
+	}
+
+	public boolean isUnlocked() {
+		return unlocked;
+	}
+
+	public void setUnlocked(boolean unlocked) {
+		this.unlocked = unlocked;
+	}
+
+	public String getLevelType(){
+		return this.getClass().getSimpleName();
+	}
+	
+	@Override
+	public final int hashCode() {
+		return toString().hashCode();
+	}
+
+	@Override
+	public final String toString() {
+		return getLevelType()+": "+this.params.getIdNum();
+	}
+	
+}

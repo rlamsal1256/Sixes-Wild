@@ -1,0 +1,71 @@
+package common.view;
+
+import javax.swing.JPanel;
+
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.util.ArrayList;
+
+import common.model.AbstractSquare;
+import common.model.Board;
+
+public class BoardView extends JPanel {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2016456516978998290L;
+
+	Board board;
+	
+	ArrayList<AbstractSquareDrawer<AbstractSquare>> drawers;
+	
+	public BoardView(Board board) {
+		setLayout(null);
+		setBoard(board);
+	}
+	
+	public void initialize(){
+		setBoard(board);
+	}
+	
+	public AbstractSquare squareAt(int x,int y){
+		return board.getSquare(y*board.getSize()/this.getHeight(),x*board.getSize()/this.getWidth());
+	}
+
+	public void setBoard(Board board){
+		this.board=board;
+		drawers=new ArrayList<AbstractSquareDrawer<AbstractSquare>>();
+		
+		for(AbstractSquare s:board){
+			AbstractSquareDrawer<AbstractSquare> d=s.getDrawer();
+			d.setTileSize(this.getWidth()/board.getSize(),this.getHeight()/board.getSize());
+			drawers.add(d);
+		}
+	}
+	
+	@Override
+	public void setBounds(int x, int y, int width, int height) {
+		super.setBounds(x, y, width, height);
+		
+		for(AbstractSquareDrawer<AbstractSquare> d:drawers){
+			//d.setBounds(board.getSize(),this.getWidth(),this.getHeight());
+			d.setBounds(this.getWidth()/board.getSize(),this.getHeight()/board.getSize());
+		}
+	}
+
+	@Override
+	public Dimension getMinimumSize() {
+		return new Dimension(100,100);
+	}
+
+	@Override
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		
+		for(AbstractSquareDrawer<AbstractSquare> d:drawers){
+			d.drawOn(g);
+		}
+	}
+
+}

@@ -1,0 +1,32 @@
+package common.model;
+
+import java.awt.Color;
+
+import common.view.AbstractSquareDrawer;
+
+public abstract class AbstractSquare {
+	
+	public static Color[] SQUARE_COLOR={Color.WHITE,Color.PINK,Color.RED,Color.ORANGE, Color.YELLOW,Color.GREEN,Color.CYAN};
+	
+	int row;
+	int column;
+
+	public AbstractSquare(int row,int column){
+		this.row=row;
+		this.column=column;
+	}
+	
+	public final int getRow() {
+		return row;
+	}
+
+	public final int getColumn() {
+		return column;
+	}
+	
+	//abstract squareDrawer getDrawer();
+	public abstract boolean update();
+	
+	public abstract <T extends AbstractSquareDrawer<E>, E extends AbstractSquare> T getDrawer();
+
+}

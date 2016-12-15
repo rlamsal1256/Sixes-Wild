@@ -1,0 +1,112 @@
+package player.view;
+
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.JLayeredPane;
+import javax.swing.JPanel;
+import javax.swing.JLabel;
+
+import player.controllers.PlayerController;
+
+import java.awt.FlowLayout;
+
+public class PlayerApplication {
+
+	private JFrame frame;
+
+	JLayeredPane layeredPane;
+	
+	JPanel splashView;
+	StartScreenView startView;
+	TypeSelectView selectView;
+	GameView gameView;
+	private JLabel lblSplash;
+
+	/**
+	 * Create the application.
+	 */
+	public PlayerApplication() {
+		PlayerController.setApp(this);
+		initialize();
+	}
+
+	/**
+	 * Initialize the contents of the frame.
+	 */
+	private void initialize() {
+		frame = new JFrame();
+		frame.setBounds(100, 100, 745, 477);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		layeredPane = new JLayeredPane();
+		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
+		groupLayout.setHorizontalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addComponent(layeredPane, GroupLayout.DEFAULT_SIZE, 727, Short.MAX_VALUE)
+		);
+		groupLayout.setVerticalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addComponent(layeredPane, GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE)
+		);
+		
+		startView = new StartScreenView(this);
+		
+		selectView = new TypeSelectView();
+		selectView.setVisible(false);
+		
+		gameView = new GameView();
+		gameView.setVisible(false);
+		
+		splashView = new JPanel();
+		splashView.setVisible(false);
+		splashView.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		
+		lblSplash = new JLabel("splash");
+		splashView.add(lblSplash);
+		GroupLayout gl_layeredPane = new GroupLayout(layeredPane);
+		gl_layeredPane.setHorizontalGroup(
+			gl_layeredPane.createParallelGroup(Alignment.LEADING)
+				.addComponent(selectView, GroupLayout.DEFAULT_SIZE, 727, Short.MAX_VALUE)
+				.addComponent(splashView, GroupLayout.DEFAULT_SIZE, 727, Short.MAX_VALUE)
+				.addComponent(startView, GroupLayout.DEFAULT_SIZE, 727, Short.MAX_VALUE)
+				.addComponent(gameView, GroupLayout.DEFAULT_SIZE, 727, Short.MAX_VALUE)
+		);
+		gl_layeredPane.setVerticalGroup(
+			gl_layeredPane.createParallelGroup(Alignment.LEADING)
+				.addComponent(selectView, GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE)
+				.addComponent(splashView, GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE)
+				.addComponent(startView, GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE)
+				.addComponent(gameView, GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE)
+		);
+		layeredPane.setLayout(gl_layeredPane);
+		
+		frame.getContentPane().setLayout(groupLayout);
+	}
+
+	public JFrame getFrame() {
+		return frame;
+	}
+
+	public JLayeredPane getLayeredPane() {
+		return layeredPane;
+	}
+
+	public JPanel getSplashView() {
+		return splashView;
+	}
+
+	public StartScreenView getStartView() {
+		return startView;
+	}
+
+	public JPanel getSelectView() {
+		return selectView;
+	}
+
+	public JPanel getGameView() {
+		return gameView;
+	}
+}

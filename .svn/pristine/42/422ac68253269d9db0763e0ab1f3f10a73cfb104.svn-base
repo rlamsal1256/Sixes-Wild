@@ -1,0 +1,30 @@
+package gameModes.release;
+
+import common.*;
+import common.model.AbstractContainer;
+import common.model.AbstractSquare;
+import common.model.Tile;
+import common.view.AbstractSquareDrawer;
+
+public class ReleaseSquare extends AbstractContainer {
+
+	public ReleaseSquare(int row, int column) {
+		super(row, column);
+	}
+
+	@Override
+	public boolean update() {
+		Tile t=getFillFrom().peek();
+		if(t!=null&&t.getVal()==6){
+			return super.update();
+		}
+		return false;
+	}
+
+	@Override
+	public <T extends AbstractSquareDrawer<E>, E extends AbstractSquare> T getDrawer() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

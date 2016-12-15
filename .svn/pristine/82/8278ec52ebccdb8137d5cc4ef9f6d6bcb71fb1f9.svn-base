@@ -1,0 +1,97 @@
+package player.view;
+
+import javax.swing.JCheckBox;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+
+import player.controllers.SelectMoveController;
+import common.model.AbstractMove;
+import common.view.IUpdateFields;
+
+import java.awt.FlowLayout;
+import java.util.ArrayList;
+
+public class PlayMovePanel extends JPanel implements IUpdateFields{
+	
+	FlowLayout flowLayout;
+	
+	ArrayList<Class<? extends AbstractMove>> moves;
+	ArrayList<JCheckBox> boxes=new ArrayList<JCheckBox>();
+	
+	/**
+	 * Create the panel.
+	 */
+	public PlayMovePanel() {
+		flowLayout=new FlowLayout(FlowLayout.CENTER, 7, 7);
+		setLayout(flowLayout);
+		
+		addField("move1");
+	}
+	
+	public void initialize(ArrayList<Class<? extends AbstractMove>> moves){
+		removeAll();
+		flowLayout.setVgap(20);
+		setLayout(flowLayout);
+		this.moves=new ArrayList<Class<? extends AbstractMove>>();
+		boxes=new ArrayList<JCheckBox>();
+		
+		int i=0;
+		for(Class<? extends AbstractMove> m:moves){
+			final int n=i;
+			this.moves.add(m);
+			addField(AbstractMove.type(m)+":");
+			boxes.get(n).addItemListener(new SelectMoveController(this));
+			i++;
+		}
+	}
+	
+	public void addField(String str){
+		
+		JCheckBox checkBox = new JCheckBox(str);
+		checkBox.setVerticalTextPosition(SwingConstants.TOP);
+		checkBox.setHorizontalTextPosition(SwingConstants.CENTER);
+		checkBox.setOpaque(false);
+		add(checkBox);
+		
+		boxes.add(checkBox);
+	}
+
+	@Override
+	public void updateFields() {
+		
+	}
+	
+	/**
+	 * Returns the move corresponding the input box
+	 * @param box
+	 * @return
+	 */
+	public Class<? extends AbstractMove> getMove(JCheckBox box){
+		for(int i=0;i<boxes.size();i++){
+			if(boxes.get(i).equals(box))
+				return moves.get(i);
+		}
+		return null;
+	}
+	
+	public void deselectAll(){
+		for(JCheckBox b:boxes){
+			if(b.isSelected())
+				b.setSelected(false);
+		}
+	}
+
+	@Override
+	public void setBounds(int x, int y, int width, int height) {
+		super.setBounds(x, y, width, height);
+	}
+
+	public ArrayList<Class<? extends AbstractMove>> getMoves() {
+		return moves;
+	}
+
+	public ArrayList<JCheckBox> getBoxes() {
+		return boxes;
+	}
+	
+}

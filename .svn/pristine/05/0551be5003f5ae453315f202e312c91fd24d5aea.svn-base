@@ -1,0 +1,35 @@
+package player.model;
+
+import common.model.AbstractLevel;
+import common.model.Board;
+
+public abstract class AbstractGame {
+
+	AbstractLevel level;
+	int score;
+	Board board;
+	
+	public Board getBoard() {
+		return board;
+	}
+
+	public void setBoard(Board board) {
+		this.board = board;
+	}
+
+	public AbstractLevel getLevel() {
+		return level;
+	}
+
+	public int getScore() {
+		return score;
+	}
+
+	AbstractGame(AbstractLevel level){
+		this.level=level;
+		score=0;
+	}
+	
+	abstract boolean hasWon();
+	abstract boolean hasLost();
+}

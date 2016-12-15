@@ -1,0 +1,138 @@
+package common.model;
+
+import java.util.Collections;
+import java.util.Hashtable;
+import java.util.Iterator;
+
+public class Board implements Iterable<AbstractSquare>{
+	
+	protected int size;
+
+	protected Hashtable<String,AbstractSquare> squares;
+	
+	public Board(int size){
+		squares=new Hashtable<String,AbstractSquare>();
+		
+		setSize(size);
+	}
+	
+	public Board(Hashtable<String,AbstractSquare> squares){
+		this.squares=squares;
+	}
+	
+	public void setSize(int size){
+		this.size=size;
+		Hashtable<String,AbstractSquare> s=new Hashtable<String,AbstractSquare>();
+		for(int r=0;r<size;r++){
+			for(int c=0;c<size;c++){
+				if(s.containsKey(r+","+c)){
+					s.put(r+","+c,squares.get(r+","+c));
+				}
+				else
+					s.put(r+","+c,new Square(r,c));
+			}
+		}
+		squares=s;
+	}
+	
+	public int getSize() {
+		return size;
+	}
+	
+	/**
+	 * returns a copy of this board and all its squares
+	 * used to get a board without a reference to the original
+	 * @return
+	 */
+	public Board copy(){
+		return new Board(squares);
+	}
+	
+	/**
+	 * returns the Abstract Square Object at the specified position
+	 * 	if no such square object exists??
+	 * 		return new RandomSource???
+	 * @param row
+	 * @param column
+	 * @return
+	 */
+	public AbstractSquare getSquare(int row,int column){
+		return squares.get(row+","+column);
+	}
+	
+	public boolean removeTile(int r,int c){
+		AbstractSquare squ=squares.get(r+","+c);
+		if(squ instanceof AbstractContainer){
+			((AbstractContainer)squ).remove();
+			return false;
+		}
+		else
+			return true;
+	}
+	
+	/**
+	 * Removes the tiles from the squares in the selection
+	 * @param select
+	 */
+	public void remove(Selection select){
+		
+	}
+	
+	/**
+	 * Removes the tiles from all Container objects in the board
+	 */
+	public void removeAllTiles(){
+		for(AbstractSquare s:this){
+			if(s instanceof AbstractContainer){
+				((AbstractContainer)s).remove();
+			}
+		}
+	}
+	
+	/**
+	 * sets "fillFrom" references of all Container objects in the board to "null"
+	 */
+	public void removeAllReferences(){
+		for(AbstractSquare s:this){
+			if(s instanceof AbstractContainer){
+				((AbstractContainer)s).removeFillFrom();
+			}
+		}
+	}
+	
+	public void update(){
+		for(AbstractSquare s:this){
+			s.update();
+		}
+	}
+
+	@Override
+	public Iterator<AbstractSquare> iterator() {
+		return Collections.list(squares.elements()).iterator();
+	}
+
+
+	@Override
+	public String toString() {
+		String p="";
+		for(int r=0;r<size;r++){
+//			p+= "|";
+//			for(int c=0;c<size;c++){
+//				p+="-|";
+//			}
+//			p+="\n";
+			p+="|";
+			for(int c=0;c<size;c++){
+				p+=squares.get(r+","+c).toString()+"|";
+			}
+			p+="\n";
+		}
+//		p+="|";
+//		for(int c=0;c<size;c++){
+//			p+="-|";
+//		}
+		return p;
+	}
+
+	
+}

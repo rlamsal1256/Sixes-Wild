@@ -1,0 +1,21 @@
+package common.model;
+
+import common.view.EmptySquareDrawer;
+
+public class EmptySquare extends AbstractSquare{
+
+	EmptySquare(int row, int column) {
+		super(row, column);
+	}
+
+	@Override
+	public boolean update() {
+		return false;
+	}
+
+	@Override
+	public EmptySquareDrawer getDrawer() {
+		return new EmptySquareDrawer(this);
+	}
+
+}

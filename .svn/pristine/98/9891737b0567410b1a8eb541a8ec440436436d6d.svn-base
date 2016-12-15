@@ -1,0 +1,43 @@
+package common.view;
+
+import java.awt.Color;
+
+import common.model.Square;
+
+public class SquareDrawer<T extends Square> extends AbstractSquareDrawer<T> {
+
+	public SquareDrawer(T square){
+		super(square);
+	}
+
+	@Override
+	public String setSubText() {
+		if(square.hasTile()){
+			int b=square.peek().getBonus();
+			if(b!=1){
+				return "x"+b;
+			}
+		}
+		return "";
+	}
+
+	@Override
+	public String setText() {
+		if(square.hasTile())
+			return String.valueOf(square.peek().getVal());
+		return "";
+	}
+
+	@Override
+	public Color setForeground() {
+		return Color.BLACK;
+	}
+
+	@Override
+	public Color setBackground() {
+		if(square.hasTile())
+			return Square.SQUARE_COLOR[square.peek().getVal()];
+		return Color.LIGHT_GRAY;
+	}
+	
+}

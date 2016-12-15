@@ -1,0 +1,147 @@
+package common.model;
+
+import java.util.Enumeration;
+import java.util.Hashtable;
+
+public class FrequencyList {
+	
+	Hashtable<Integer,Frequency> spawn=new Hashtable<Integer,Frequency>();
+	Hashtable<Integer,Frequency> bonus=new Hashtable<Integer,Frequency>();
+	
+	public FrequencyList(){
+
+		for(int i=1;i<=6;i++){
+			spawn.put(i,new Frequency(i));
+		}
+		setSpawnFreq(1,Frequency.MAX_FREQ);
+
+		for(int i=1;i<=3;i++){
+			bonus.put(i, new Frequency(i));
+		}
+		setBonusFreq(1,Frequency.MAX_FREQ);
+	}
+	
+	public boolean setSpawnFreq(int value,float freq){
+		return setFreq(spawn,value,freq);
+	}
+	
+	public float getSpawnFreq(int value){
+		return spawn.get(value).getFrequency();
+	}
+	
+	public boolean setBonusFreq(int value,float freq){
+		return setFreq(bonus,value,freq);
+	}
+	
+	public float getBonusFreq(int value){
+		return bonus.get(value).getFrequency();
+	}
+	
+	private boolean setFreq(Hashtable<Integer,Frequency> table,int value,float freq){
+		if(table.containsKey(value)==false)
+			return false;
+		
+		Frequency t=table.get(value);
+		t.setFrequency(freq);
+		
+		if(t.priority>0){
+			for(Enumeration<Frequency> e= table.elements();e.hasMoreElements();){
+				Frequency f=e.nextElement();
+				f.incrementPriority();
+			}
+		}
+		t.setPriority(0);
+		
+		float sum=sumFreq(table);
+		while(sum>Frequency.MAX_FREQ){
+			lowestPriorityNonZero(table).changeFrequency(Frequency.MAX_FREQ-sum);
+			sum=sumFreq(table);
+		}
+		while(sum<Frequency.MAX_FREQ){
+			lowestPriorityNonMax(table).changeFrequency(Frequency.MAX_FREQ-sum);
+			sum=sumFreq(table);
+		}
+		return true;
+	}
+
+	private float sumFreq(Hashtable<Integer,Frequency> table){
+		float sum=0;
+		for(Enumeration<Frequency> e= table.elements();e.hasMoreElements();){
+			Frequency f=e.nextElement();
+			sum+=f.getFrequency();
+		}
+		return sum;
+	}
+	
+	private Frequency lowestPriorityNonZero(Hashtable<Integer,Frequency> table){
+		Frequency out=table.elements().nextElement();
+		for(Enumeration<Frequency> e= table.elements();e.hasMoreElements();){
+			Frequency f=e.nextElement();
+			if(out.getFrequency()<=Frequency.MIN_FREQ)
+				out=f;
+			if((f.priority>=out.priority)&&(f.getFrequency()>Frequency.MIN_FREQ))
+				out=f;
+		}
+		return out;
+	}
+	
+	private Frequency lowestPriorityNonMax(Hashtable<Integer,Frequency> table){
+		Frequency out=table.elements().nextElement();
+		for(Enumeration<Frequency> e= table.elements();e.hasMoreElements();){
+			Frequency f=e.nextElement();
+			if(out.getFrequency()>=Frequency.MAX_FREQ)
+				out=f;
+			if((f.priority>=out.priority)&&(f.getFrequency()<Frequency.MAX_FREQ))
+				out=f;
+		}
+		return out;
+	}
+	
+	public Tile makeTile(){
+		int val=1, multiplier=1;
+		
+		double r=Math.random()*Frequency.MAX_FREQ-Frequency.MIN_FREQ;
+		double sum=0;
+		
+		loop:
+		for(Enumeration<Frequency> e= spawn.elements();e.hasMoreElements();){
+			Frequency f=e.nextElement();
+			sum+=f.getFrequency();
+			if(sum>r){
+				val=f.getValue();
+				break loop;
+			}
+		}
+		
+		r=Math.random()*Frequency.MAX_FREQ-Frequency.MIN_FREQ;
+		sum=0;
+		
+		loop:
+		for(Enumeration<Frequency> e= bonus.elements();e.hasMoreElements();){
+			Frequency f=e.nextElement();
+			sum+=f.getFrequency();
+			if(sum>r){
+				multiplier=f.getValue();
+				break loop;
+			}
+		}
+		
+		return new Tile(val,multiplier);
+	}
+	
+	@Override
+	public String toString(){
+		String p="";
+		p+="Spawn:\n";
+		for(Enumeration<Frequency> e= spawn.elements();e.hasMoreElements();){
+			Frequency f=e.nextElement();
+			p+="\t"+f+"\n";
+		}
+		p+="Bonus:\n";
+		for(Enumeration<Frequency> e= bonus.elements();e.hasMoreElements();){
+			Frequency f=e.nextElement();
+			p+="\t"+f+"\n";
+		}
+		return p;
+	}
+}

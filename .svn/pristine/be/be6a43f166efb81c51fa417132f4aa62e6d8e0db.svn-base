@@ -1,0 +1,29 @@
+package gameModes.release;
+
+import java.awt.Color;
+
+import common.view.AbstractSquareDrawer;
+
+public class ReleaseSquareDrawer extends AbstractSquareDrawer<ReleaseSquare> {
+
+	public ReleaseSquareDrawer(ReleaseSquare square) {
+		super(square);
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public String getText() {
+		return "6";
+	}
+
+	@Override
+	public Color getForeground() {
+		return Color.WHITE;
+	}
+
+	@Override
+	public Color getBackground() {
+		return Color.BLACK;
+	}
+
+}

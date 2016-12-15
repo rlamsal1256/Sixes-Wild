@@ -1,0 +1,30 @@
+package player.controllers;
+
+import player.PlayerApplication;
+
+public final class PlayerAppReference{
+	
+	private static PlayerApplication app=null;
+	
+	private PlayerAppReference(){
+		
+	}
+	
+	public static void set(PlayerApplication app){
+		if(PlayerAppReference.app==null){
+			PlayerAppReference.app=app;
+		}
+	}
+	
+	public static PlayerApplication get(){
+		return PlayerAppReference.app;
+	}
+	
+	public static void updateFields(){
+		PlayerAppReference.app.updateFields();
+	}
+	
+	public static void clear(){
+		PlayerAppReference.app=null;
+	}
+}

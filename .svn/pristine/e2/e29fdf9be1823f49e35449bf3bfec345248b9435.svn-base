@@ -1,0 +1,16 @@
+package player.controllers;
+
+import java.awt.event.MouseEvent;
+
+public class ToLevelSelectController extends PlayerController{
+	
+	public ToLevelSelectController(){
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		showOnly(getApp().getSelectView());
+	}
+
+}

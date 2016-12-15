@@ -1,0 +1,38 @@
+package player.controllers;
+
+import common.model.AbstractContainer;
+import common.model.Square;
+import common.model.Tile;
+
+public class StartAsSixSquare extends Square {
+
+	/** @author tjbennett
+	 *  @author njpanzarino
+	 */
+	private static final long serialVersionUID = 2549786961672948322L;
+
+	public StartAsSixSquare(AbstractContainer s) {
+		super(s);
+	}
+
+	public StartAsSixSquare(int row, int column) {
+		super(row, column);
+		initialize();
+	}
+
+	@Override
+	public StartAsSixSquare makeCopy() {
+		return new StartAsSixSquare(this);
+	}
+
+	@Override
+	public void initialize() {
+		super.initialize();
+		
+		this.setTile(new Tile(6, 1));
+	}
+	
+	public static String type() {
+		return "Six Square";
+	}
+}

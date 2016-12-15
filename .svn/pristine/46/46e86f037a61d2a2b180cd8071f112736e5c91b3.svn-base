@@ -1,0 +1,32 @@
+package player.controllers;
+
+import java.awt.Dimension;
+import java.awt.event.MouseEvent;
+
+import player.model.AbstractGame;
+
+public class ToLevelSelectController extends AbstractPlayerController{
+	
+	public ToLevelSelectController(){
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		go();
+	}
+	
+	public void go(){
+		AbstractGame g=PlayerAppReference.get().getGameView().getTheGame();
+		if(g!=null){
+			g.endGame();
+		}
+		PlayerAppReference.get().getAllLevels().updateUnlocked();
+		
+		PlayerAppReference.get().getSelectView().initialize(PlayerAppReference.get().getAllLevels());
+		showOnly(PlayerAppReference.get().getSelectView());
+		PlayerAppReference.get().getFrame().setMinimumSize(new Dimension(450, 400));
+		
+		//PlayerAppReference.get().getFrame().setSize(450, 400);
+	}
+}

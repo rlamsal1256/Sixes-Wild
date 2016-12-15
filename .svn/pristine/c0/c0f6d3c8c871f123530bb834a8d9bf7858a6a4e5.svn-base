@@ -1,0 +1,29 @@
+package common.model;
+
+public class ScoreThresholds {
+	
+	//holds scores needed for 0-X stars (Default X=3)
+	int scoreThresh[];
+	
+	ScoreThresholds(){
+		scoreThresh=new int[4];
+		for(int i=0;i<scoreThresh.length;i++)
+			scoreThresh[i]=0;
+	}
+	
+	ScoreThresholds(int one, int two, int three){
+		scoreThresh=new int[4];
+		scoreThresh[0]=0;
+		scoreThresh[1]=one;
+		scoreThresh[2]=two;
+		scoreThresh[3]=three;
+	}
+	
+	int getNumStars(int inScore){
+		for(int i=0;i<scoreThresh.length;i++)
+			if(inScore<scoreThresh[i])
+				return i-1;
+		return scoreThresh.length-1;
+	}
+
+}

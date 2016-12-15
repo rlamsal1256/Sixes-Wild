@@ -1,0 +1,42 @@
+package common.model;
+
+public class LevelParameters {
+	protected ScoreThresholds thresholds;
+	protected FrequencyList freqs;
+	protected int idNum;
+	protected Board board;
+	
+	LevelParameters(int idNum){
+		this.idNum=idNum;
+	}
+	
+	public ScoreThresholds getThresholds() {
+		return thresholds;
+	}
+
+	public void setThresholds(ScoreThresholds thresholds) {
+		this.thresholds = thresholds;
+	}
+
+	public FrequencyList getFreqs() {
+		return freqs;
+	}
+
+	public void setFreqs(FrequencyList freqs) {
+		this.freqs = freqs;
+	}
+
+	public int getIdNum() {
+		return idNum;
+	}
+
+	public Board getBoard() {
+		return board;
+	}
+
+	public void setBoard(Board board) {
+		this.board = board;
+	}
+	
+	
+}

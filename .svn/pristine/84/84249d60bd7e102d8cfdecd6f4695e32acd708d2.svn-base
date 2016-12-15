@@ -1,0 +1,24 @@
+package common.model;
+
+public class Tile {
+
+	int val;
+	int bonus;
+	
+	public Tile(int val,int bonus){
+		this.val=val;
+		this.bonus=bonus;
+	}
+	
+	public Tile copy(){
+		return new Tile(this.val,this.bonus);
+	}
+
+	public int getVal() {
+		return val;
+	}
+
+	public int getBonus() {
+		return bonus;
+	}
+}

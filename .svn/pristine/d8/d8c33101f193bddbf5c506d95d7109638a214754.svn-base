@@ -1,0 +1,22 @@
+package gameModes.puzzle;
+
+import player.model.AbstractGame;
+import common.model.AbstractLevel;
+
+public class PuzzleLevel extends AbstractLevel {
+
+	static int uniqueLevelID=0;
+	
+	int maxMoves;
+	
+	@Override
+	public AbstractGame makeGame() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int setID() {
+		return uniqueLevelID++;
+	}
+}

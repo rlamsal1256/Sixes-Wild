@@ -1,0 +1,52 @@
+package builder.view;
+
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+
+import builder.model.BuilderModel;
+import player.view.StartScreenView;
+
+public class LevelBuilder {
+
+	private JFrame frame;
+	BuilderView view;
+	BuilderModel model;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					LevelBuilder window = new LevelBuilder();
+					window.frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the application.
+	 */
+	public LevelBuilder() {
+		initialize();
+	}
+
+	/**
+	 * Initialize the contents of the frame.
+	 */
+	private void initialize() {
+		frame = new JFrame();
+		frame.setBounds(100, 100, 720, 534);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().setLayout(null);
+		
+		BuilderView boardView = new BuilderView();
+		boardView.setBounds(0, 0, 702, 484);
+		frame.getContentPane().add(boardView);
+	}
+}

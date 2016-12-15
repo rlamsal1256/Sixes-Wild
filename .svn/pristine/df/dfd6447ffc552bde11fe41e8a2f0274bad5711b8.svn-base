@@ -1,0 +1,68 @@
+package gameModes.puzzle;
+
+import java.awt.Color;
+import java.io.Serializable;
+
+import builder.view.ParameterPanel;
+
+import common.model.AbstractLevel;
+import common.model.ICopy;
+
+/**
+ * @author njpanzarino
+ * @author tjbennett
+ */
+public class PuzzleLevel extends AbstractLevel implements Serializable{
+	
+	private static final long serialVersionUID = -8303954416976988023L;
+	
+	
+	int maxMoves=10;
+	
+	public PuzzleLevel(Integer num) {
+		super(num);
+	}
+
+	public <T extends AbstractLevel> PuzzleLevel(T level) {
+		super(level);
+	}
+	
+	public PuzzleLevel makeCopy() {
+		PuzzleLevel copy = new PuzzleLevel(this);
+		copy.setMaxMoves(maxMoves);
+		return copy;
+	}
+
+	@Override
+	public PuzzleGame makeGame() {
+		return new PuzzleGame(this);
+	}	
+
+	public static String type() {
+		return "Puzzle";
+	}
+
+	public int getMaxMoves() {
+		return maxMoves;
+	}
+	
+	public void setMaxMoves(int maxMoves) {
+		this.maxMoves=maxMoves;
+	}
+	
+	public static ParameterPanel getAdditionalParameterPanel(){
+		return new PuzzleParameterPanel();
+	}
+
+	@Override
+	public void copy(ICopy object)
+	{
+		super.copy(object);
+		setMaxMoves(((PuzzleLevel)object).getMaxMoves());
+	}
+	
+	@Override
+	public Color getColor() {
+		return new Color(51, 153, 255);
+	}
+}

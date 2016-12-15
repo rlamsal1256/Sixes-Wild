@@ -1,0 +1,19 @@
+package gameModes.elimination;
+
+import common.view.SquareDrawer;
+
+public class EliminationSquareDrawer extends SquareDrawer<EliminationSquare> {
+
+	public EliminationSquareDrawer(EliminationSquare square) {
+		super(square);
+	}
+
+	@Override
+	public int setNumBorders() {
+		int out=1;
+		if(square.isMarked()==true)
+			out++;
+		return out;
+	}
+	
+}

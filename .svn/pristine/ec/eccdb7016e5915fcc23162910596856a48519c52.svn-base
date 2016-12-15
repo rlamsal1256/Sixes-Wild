@@ -1,0 +1,63 @@
+package builder.view;
+
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.JPanel;
+
+public class BuilderApplication {
+
+	private JFrame frame;
+	
+	BuilderView builderView;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					BuilderApplication window = new BuilderApplication();
+					window.frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the application.
+	 */
+	public BuilderApplication() {
+		initialize();
+	}
+
+	/**
+	 * Initialize the contents of the frame.
+	 */
+	private void initialize() {
+		frame = new JFrame();
+		frame.setBounds(100, 100, 665, 524);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		builderView = new BuilderView();
+		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
+		groupLayout.setHorizontalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addComponent(builderView, GroupLayout.DEFAULT_SIZE, 432, Short.MAX_VALUE)
+		);
+		groupLayout.setVerticalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addComponent(builderView, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)
+		);
+		frame.getContentPane().setLayout(groupLayout);
+	}
+
+	public JFrame getFrame() {
+		return frame;
+	}
+}

@@ -1,0 +1,30 @@
+package gameModes.elimination;
+
+import common.model.Square;
+import common.model.Tile;
+
+public class EliminationSquare extends Square {
+	
+	protected boolean marked;
+	
+	EliminationSquare(int row, int column) {
+		super(row, column);
+	}
+
+	@Override
+	public EliminationSquareDrawer getDrawer(){
+		return new EliminationSquareDrawer(this);
+	}
+
+	@Override
+	public boolean update() {
+		Boolean b=super.update();
+		if(b==true)
+			marked=true;
+		return b;
+	}
+
+	public boolean isMarked() {
+		return marked;
+	}
+}

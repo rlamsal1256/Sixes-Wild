@@ -1,0 +1,187 @@
+package builder.view;
+
+import javax.swing.JPanel;
+import javax.swing.border.SoftBevelBorder;
+import javax.swing.border.BevelBorder;
+import javax.swing.UIManager;
+import javax.swing.JButton;
+
+import java.awt.Font;
+
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JSlider;
+import javax.swing.JLabel;
+import javax.swing.SwingConstants;
+import javax.swing.JSpinner;
+
+import builder.model.BuilderModel;
+import common.model.Board;
+import common.view.BoardView;
+
+public class BuilderView extends JPanel {
+	
+	BoardView boardView;
+	BuilderModel model;
+
+	/**
+	 * Create the panel.
+	 */
+	public BuilderView() {
+		setBackground(UIManager.getColor("CheckBoxMenuItem.disabledForeground"));
+		setLayout(null);
+		
+		boardView = new BoardView(new Board(5));
+		boardView.setBounds(262, 110, 372, 357);
+		boardView.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		boardView.setBackground(this.getBackground());
+		add(boardView);
+		
+		JPanel panel = new JPanel();
+		panel.setBackground(UIManager.getColor("Menu.selectionBackground"));
+		panel.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		panel.setBounds(6, 6, 244, 96);
+		add(panel);
+		panel.setLayout(null);
+		
+		JLabel levelTypeLabel = new JLabel("type:");
+		levelTypeLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		levelTypeLabel.setFont(new Font("Righteous", Font.PLAIN, 13));
+		levelTypeLabel.setBounds(6, 6, 61, 16);
+		panel.add(levelTypeLabel);
+		
+		JLabel levelNumLabel = new JLabel("level #:");
+		levelNumLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		levelNumLabel.setFont(new Font("Righteous", Font.PLAIN, 13));
+		levelNumLabel.setBounds(6, 34, 61, 16);
+		panel.add(levelNumLabel);
+		
+		JLabel sizeLabel = new JLabel("size:");
+		sizeLabel.setFont(new Font("Righteous", Font.PLAIN, 13));
+		sizeLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		sizeLabel.setBounds(6, 62, 61, 16);
+		panel.add(sizeLabel);
+		
+		JSlider sizeSlider = new JSlider();
+		sizeSlider.setBackground(UIManager.getColor("Menu.selectionBackground"));
+		sizeSlider.setValue(9);
+		sizeSlider.setMaximum(9);
+		sizeSlider.setBounds(78, 58, 160, 29);
+		panel.add(sizeSlider);
+		
+		JComboBox<Integer> levelNumCombo = new JComboBox<Integer>();
+		levelNumCombo.setModel(new DefaultComboBoxModel<Integer>(new Integer[] {1}));
+		levelNumCombo.setFont(new Font("Righteous", Font.PLAIN, 13));
+		levelNumCombo.setBounds(110, 32, 126, 27);
+		panel.add(levelNumCombo);
+		
+		JComboBox<String> levelTypeCombo = new JComboBox<String>();
+		levelTypeCombo.setFont(new Font("Righteous", Font.PLAIN, 13));
+		levelTypeCombo.setModel(new DefaultComboBoxModel<String>(new String[] {"lightning", "puzzle", "release", "elimination"}));
+		levelTypeCombo.setBounds(110, 6, 126, 27);
+		panel.add(levelTypeCombo);
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(UIManager.getColor("Menu.selectionBackground"));
+		panel_1.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		panel_1.setBounds(6, 110, 244, 280);
+		add(panel_1);
+		panel_1.setLayout(null);
+		
+		JComboBox<String> parameterCombo = new JComboBox<String>();
+		parameterCombo.setModel(new DefaultComboBoxModel<String>(new String[] {"bonus tiles", "by type", "special moves", "star requirements", "tile frequency"}));
+		parameterCombo.setFont(new Font("Righteous", Font.PLAIN, 14));
+		parameterCombo.setBounds(6, 8, 232, 27);
+		panel_1.add(parameterCombo);
+		
+		JSlider slider = new JSlider();
+		slider.setBackground(UIManager.getColor("Menu.selectionBackground"));
+		slider.setBounds(22, 61, 200, 29);
+		panel_1.add(slider);
+		
+		JSlider slider_1 = new JSlider();
+		slider_1.setBackground(UIManager.getColor("Menu.selectionBackground"));
+		slider_1.setBounds(22, 102, 200, 29);
+		panel_1.add(slider_1);
+		
+		JLabel lblX = new JLabel("x2");
+		lblX.setHorizontalAlignment(SwingConstants.CENTER);
+		lblX.setFont(new Font("Righteous", Font.PLAIN, 13));
+		lblX.setBounds(6, 65, 20, 16);
+		panel_1.add(lblX);
+		
+		JLabel lblX_1 = new JLabel("x3");
+		lblX_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblX_1.setFont(new Font("Righteous", Font.PLAIN, 13));
+		lblX_1.setBounds(6, 106, 20, 16);
+		panel_1.add(lblX_1);
+		
+		JLabel label = new JLabel("%");
+		label.setHorizontalAlignment(SwingConstants.CENTER);
+		label.setFont(new Font("Righteous", Font.PLAIN, 13));
+		label.setBounds(218, 107, 20, 16);
+		panel_1.add(label);
+		
+		JLabel label_1 = new JLabel("%");
+		label_1.setHorizontalAlignment(SwingConstants.CENTER);
+		label_1.setFont(new Font("Righteous", Font.PLAIN, 13));
+		label_1.setBounds(218, 67, 20, 16);
+		panel_1.add(label_1);
+		
+		JButton undoButton = new JButton("undo");
+		undoButton.setBackground(UIManager.getColor("Button.disabledForeground"));
+		undoButton.setFont(new Font("Righteous", Font.PLAIN, 14));
+		undoButton.setBounds(262, 70, 117, 33);
+		add(undoButton);
+		
+		JButton redoButton = new JButton("redo");
+		redoButton.setBackground(UIManager.getColor("Button.disabledForeground"));
+		redoButton.setFont(new Font("Righteous", Font.PLAIN, 14));
+		redoButton.setBounds(389, 70, 117, 35);
+		add(redoButton);
+		
+		JButton resetButton = new JButton("reset");
+		resetButton.setBackground(UIManager.getColor("Button.disabledForeground"));
+		resetButton.setFont(new Font("Righteous", Font.PLAIN, 14));
+		resetButton.setBounds(517, 22, 117, 65);
+		add(resetButton);
+		
+		JButton deleteButton = new JButton("delete level");
+		deleteButton.setBackground(UIManager.getColor("Button.disabledForeground"));
+		deleteButton.setFont(new Font("Righteous", Font.PLAIN, 14));
+		deleteButton.setBounds(389, 6, 117, 33);
+		add(deleteButton);
+		
+		JButton previousButton = new JButton("preview");
+		previousButton.setBackground(UIManager.getColor("Button.disabledForeground"));
+		previousButton.setFont(new Font("Righteous", Font.PLAIN, 14));
+		previousButton.setBounds(389, 38, 117, 33);
+		add(previousButton);
+		
+		JButton saveLevelButton = new JButton("save");
+		saveLevelButton.setBackground(UIManager.getColor("Button.disabledForeground"));
+		saveLevelButton.setFont(new Font("Righteous", Font.PLAIN, 14));
+		saveLevelButton.setBounds(262, 38, 117, 33);
+		add(saveLevelButton);
+		
+		JButton addNewLevelButton = new JButton("add new level");
+		addNewLevelButton.setBackground(UIManager.getColor("Button.disabledForeground"));
+		addNewLevelButton.setFont(new Font("Righteous", Font.PLAIN, 14));
+		addNewLevelButton.setBounds(262, 6, 117, 33);
+		add(addNewLevelButton);
+		
+		JComboBox<String> selectionModeCombo = new JComboBox<String>();
+		selectionModeCombo.setFont(new Font("Righteous", Font.PLAIN, 14));
+		selectionModeCombo.setModel(new DefaultComboBoxModel<String>(new String[] {"selection mode", "delete mode", "sixes mode"}));
+		selectionModeCombo.setBounds(40, 402, 183, 27);
+		add(selectionModeCombo);
+		
+		//updateFields();
+	}
+	
+	public void updateFields(){
+		
+		
+		boardView.setBoard(model.getCurrentLevel().getParams().getBoard());
+	}
+}

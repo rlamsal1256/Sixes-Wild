@@ -1,0 +1,93 @@
+package common.model;
+
+import static org.junit.Assert.*;
+
+import java.util.Enumeration;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+import common.model.Frequency;
+import common.model.FrequencyList;
+import common.model.Tile;
+
+public class FreqTester {
+
+	FrequencyList list;
+	
+	@Before
+	public void setUp() throws Exception {
+		list=new FrequencyList();
+	}
+
+	@After
+	public void tearDown() throws Exception {
+	}
+
+	@Test
+	public void test() {
+		//System.out.println(list);
+		list.setSpawnFreq(2, 50);
+		assertEquals(50,list.getSpawnFreq(2),.001);
+		
+		//System.out.println(list);
+		list.setSpawnFreq(6, 25);
+		assertEquals(25,list.getSpawnFreq(6),.001);
+		
+		//System.out.println(list);
+		list.setSpawnFreq(3, 120);
+		assertEquals(100,list.getSpawnFreq(3),.001);
+		
+		//System.out.println(list);
+		list.setSpawnFreq(3, 50);
+		assertEquals(50,list.getSpawnFreq(3),.001);
+		
+		//System.out.println(list);
+		list.setBonusFreq(3, 1);
+		assertEquals(1,list.getBonusFreq(3),.001);
+		
+		//System.out.println(list);
+		list.setBonusFreq(2, 5);
+		assertEquals(5,list.getBonusFreq(2),.001);
+		
+		//System.out.println(list);
+		list.setBonusFreq(2, 4);
+		assertEquals(4,list.getBonusFreq(2),.001);
+		
+		System.out.println(list);
+		
+		float vsum=0,bsum=0;
+		int n=1000;
+		for(int i=0;i<n;i++){
+			Tile t=list.makeTile();
+			vsum+=t.val;
+			bsum+=t.bonus;
+		}
+		vsum/=n;
+		bsum/=n;
+
+		float[] exp=getExpected(list);
+
+		//System.out.println(vsum+","+bsum);
+		//System.out.println(exp[0]+","+exp[1]);
+		
+		assertEquals(exp[0],vsum,.15);
+		assertEquals(exp[1],bsum,.15);
+	}
+	
+	private float[] getExpected(FrequencyList list){
+		float val=0,bonus=0;
+		for(Enumeration<Frequency> e= list.spawn.elements();e.hasMoreElements();){
+			Frequency f=e.nextElement();
+			val+=f.getValue()*f.getFrequency()/Frequency.MAX_FREQ;
+		}
+		for(Enumeration<Frequency> e= list.bonus.elements();e.hasMoreElements();){
+			Frequency f=e.nextElement();
+			bonus+=f.getValue()*f.getFrequency()/Frequency.MAX_FREQ;
+		}
+		float[] out={val,bonus};
+		return out;
+	}
+	
+}

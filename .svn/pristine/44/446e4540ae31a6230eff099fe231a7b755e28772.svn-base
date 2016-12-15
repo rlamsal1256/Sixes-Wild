@@ -1,0 +1,49 @@
+package common.model;
+
+import common.view.AbstractSquareDrawer;
+import common.view.SquareDrawer;
+
+public class Square extends AbstractContainer implements ISource{
+
+	Boolean selected;
+	
+	public Square(int row, int column) {
+		super(row, column);
+	}
+
+	@Override
+	public Tile takeTile() {
+		if(tile==null)
+			update();
+		
+		Tile t=remove();
+		tile=fillFrom.takeTile();
+			
+		return t;
+	}
+
+	@Override
+	public void push(Tile tile) {
+		if(tile==null)
+			this.tile=tile;
+		else{
+			Tile t=remove();
+			fillFrom.push(t);
+			this.tile=tile;
+		}
+	}
+
+	@Override
+	public String toString() {
+		if(tile==null)
+			return " ";
+		return String.valueOf(tile.getVal());
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public SquareDrawer getDrawer() {
+		return new SquareDrawer<Square>(this);
+	}
+
+}

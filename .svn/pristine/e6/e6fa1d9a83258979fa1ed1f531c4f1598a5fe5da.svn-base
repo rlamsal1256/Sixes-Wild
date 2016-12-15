@@ -1,0 +1,18 @@
+package player.controllers;
+
+import java.awt.Component;
+import java.awt.event.MouseAdapter;
+
+public abstract class AbstractPlayerController extends MouseAdapter {
+	
+	final void setAllInvisible(){
+		for(Component c:PlayerAppReference.get().getLayeredPane().getComponents()){
+			c.setVisible(false);
+		}
+	}
+	
+	final void showOnly(Component show){
+		setAllInvisible();
+		show.setVisible(true);
+	}
+}

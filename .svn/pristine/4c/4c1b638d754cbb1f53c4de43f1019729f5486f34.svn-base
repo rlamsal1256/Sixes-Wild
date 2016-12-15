@@ -1,0 +1,48 @@
+package player.controllers;
+
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+
+import javax.swing.JCheckBox;
+
+import common.controllers.BoardSelectionController;
+import common.model.AbstractMove;
+import common.view.BoardView;
+import player.view.PlayMovePanel;
+
+public class SelectMoveController implements ItemListener{
+
+	PlayMovePanel inPanel;
+	BoardSelectionController boardController=null;
+	
+	public SelectMoveController(PlayMovePanel inPanel){
+		this.inPanel=inPanel;
+	}
+	
+	public void itemStateChanged(ItemEvent e) {
+		JCheckBox box=(JCheckBox)e.getSource();
+		if(box.isSelected()){
+			//Deselect all others
+			for(JCheckBox b:inPanel.getBoxes()){
+				if(!b.equals(box)&&b.isSelected())
+					b.setSelected(false);
+			}
+			
+			//set board controller to this move's controller
+			PlayerAppReference.get().getGameView().getDefaultController().enable(false);
+			
+			if(boardController==null){
+				boardController=AbstractMove.controller(inPanel.getMove(box));
+			}
+			else
+				boardController.enable(true);
+			
+			BoardView boardView=PlayerAppReference.get().getGameView().getBoardView();
+		}
+		else{
+			boardController.enable(false);
+			
+			PlayerAppReference.get().getGameView().getDefaultController().enable(true);
+		}
+	}
+}

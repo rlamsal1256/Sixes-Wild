@@ -1,0 +1,55 @@
+package player;
+
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JWindow;
+
+import player.view.PlayerApplication;
+
+
+public class SplashPlayer extends JWindow {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6413859377639853648L;
+	private int duration = 0;
+	
+	public SplashPlayer(int duration) {
+		this.duration = duration;
+		
+		JPanel jpanel = (JPanel) getContentPane();
+		ImageIcon img = new ImageIcon("src/resource/splash.gif");
+		
+		jpanel.add(new JLabel(img), BorderLayout.CENTER);
+		setSize(img.getIconWidth(), img.getIconHeight());
+		setLocationRelativeTo(null);
+		setVisible(true);
+		
+		try{
+			Thread.sleep(duration);
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		setVisible(false);
+	}
+	
+	public static void main(String[] args) {
+		new SplashPlayer(4000);
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					PlayerApplication window = new PlayerApplication();
+					window.getFrame().setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+}

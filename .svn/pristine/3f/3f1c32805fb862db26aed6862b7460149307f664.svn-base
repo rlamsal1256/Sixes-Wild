@@ -1,0 +1,47 @@
+package player.view;
+
+import java.awt.Color;
+import java.awt.Font;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
+import javax.swing.SwingConstants;
+import javax.swing.BoxLayout;
+
+public class TypeSelectView extends JPanel {
+	public TypeSelectView() {
+		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+		
+		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane.setFont(new Font("Righteous", Font.PLAIN, 13));
+		add(tabbedPane);
+		
+		LevelSelectView lightningTab = new LevelSelectView();
+		lightningTab.setBackground(new Color(51, 153, 255));
+		tabbedPane.addTab("lightning", null, lightningTab, null);
+		tabbedPane.setForegroundAt(0, new Color(51, 153, 255));
+		
+		LevelSelectView puzzleTab = new LevelSelectView();
+		puzzleTab.setBackground(new Color(255, 120, 0));
+		tabbedPane.addTab("puzzle", null, puzzleTab, null);
+		tabbedPane.setForegroundAt(1, new Color(255, 120, 0));
+		
+		LevelSelectView releaseTab = new LevelSelectView();
+		releaseTab.setBackground(new Color(153, 50, 204));
+		tabbedPane.addTab("release", null, releaseTab, null);
+		tabbedPane.setForegroundAt(2, new Color(153, 50, 204));
+		
+		LevelSelectView elimTab = new LevelSelectView();
+		elimTab.setBackground(new Color(50, 205, 50));
+		tabbedPane.addTab("elimination", null, elimTab, null);
+		tabbedPane.setForegroundAt(3, new Color(50, 205, 50));
+	}
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2259527770083580649L;
+}

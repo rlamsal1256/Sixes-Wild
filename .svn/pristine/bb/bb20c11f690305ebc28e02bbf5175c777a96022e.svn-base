@@ -1,0 +1,67 @@
+package player.model;
+
+import java.awt.Color;
+import java.util.ArrayList;
+
+import common.model.AbstractLevel;
+import common.model.AbstractMove;
+
+/**
+ * 
+ * @author Nicholas Panzarino
+ *
+ */
+public abstract class AbstractGame {
+
+	AbstractLevel level;
+	protected int score;
+	
+	public AbstractGame(AbstractLevel level){
+		this.level=level;
+		score=0;
+	}
+
+	public AbstractLevel getLevel() {
+		return level;
+	}
+
+	public int getScore() {
+		return score;
+	}
+	
+	public boolean doMove(AbstractMove move){
+		if(move.doMove()==true){
+			score+=move.getScore();
+			return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * Returns an arrayList of strings to be displayed on the left-hand side of the gameView window.
+	 * @return
+	 */
+	public ArrayList<String> getFields(){
+		return new ArrayList<String>();
+	}
+	
+	/**
+	 * Place to put any necessary "close game" functions. 
+	 * Should be called any time a game is closed/ended
+	 */
+	public void endGame(){
+		if(this.score>this.getLevel().getHighscore()){
+			this.getLevel().setHighscore(score);
+		}
+	}
+	
+	public final Color gameColor(){
+		return this.getLevel().getColor();
+	}
+	
+	/**
+	 * Determines if a game has ended.
+	 * @return
+	 */
+	public abstract boolean isOver();
+}

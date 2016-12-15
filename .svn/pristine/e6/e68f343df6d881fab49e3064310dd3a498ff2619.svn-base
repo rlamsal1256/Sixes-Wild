@@ -1,0 +1,13 @@
+package player.controllers;
+
+import java.awt.event.MouseEvent;
+
+public class SelectLevelController extends PlayerController {
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		showOnly(getApp().getGameView());
+		getApp().getFrame().setSize(690, 530);
+	}
+
+}

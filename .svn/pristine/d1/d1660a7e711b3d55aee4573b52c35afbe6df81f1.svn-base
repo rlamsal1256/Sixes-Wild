@@ -1,0 +1,21 @@
+package common.model;
+
+public interface ISource {
+
+	/**
+	 * removes the tile from this source
+	 * fills this source by calling takeTile() from specified "fillFrom" source
+	 * returns the tile which was removed
+	 * @return
+	 */
+	public Tile takeTile();
+	
+	/**
+	 * sets the tile in this source to the input tile
+	 * pushes the tile that was in this source to its "fillFrom" source
+	 * @param tile
+	 */
+	public void push(Tile tile);
+
+	public Tile peek();
+}

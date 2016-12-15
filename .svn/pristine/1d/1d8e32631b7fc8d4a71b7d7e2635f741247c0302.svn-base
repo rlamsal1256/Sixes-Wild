@@ -1,0 +1,33 @@
+package common.view;
+
+import java.awt.Color;
+
+import common.model.EmptySquare;
+
+public class EmptySquareDrawer extends AbstractSquareDrawer<EmptySquare> {
+
+	public EmptySquareDrawer(EmptySquare square) {
+		super(square);
+	}
+
+	@Override
+	public String setText() {
+		return "";
+	}
+
+	@Override
+	public Color setForeground() {
+		return Color.WHITE;
+	}
+
+	@Override
+	public Color setBackground() {
+		return Color.WHITE;
+	}
+
+	@Override
+	public int setNumBorders() {
+		return 0;
+	}	
+	
+}

@@ -1,0 +1,56 @@
+package common.model;
+
+import static org.junit.Assert.*;
+
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+public class BoardTester {
+	Board board;
+	FrequencyList freq;
+
+	@Before
+	public void setUp() throws Exception {
+		board=new Board(5);
+		freq=new FrequencyList();
+		freq.setSpawnFreq(2,20);
+		freq.setSpawnFreq(3,20);
+		freq.setSpawnFreq(4,15);
+		freq.setSpawnFreq(5,15);
+		freq.setSpawnFreq(6,10);
+		
+		for(int r=0;r<board.size;r++){
+			for(int c=0;c<board.size;c++){
+				if(r==0){
+					AbstractContainer square=(AbstractContainer)board.getSquare(r,c);
+					square.setFillFrom(new RandomSource(freq));
+				}
+				else{
+					AbstractContainer square=(AbstractContainer)board.getSquare(r,c);
+					square.setFillFrom(board.getSquare((r-1),c));
+				}
+			}
+		}
+		board.update();
+	}
+
+	@After
+	public void tearDown() throws Exception {
+	}
+
+	@Test
+	public void test() {
+		
+		System.out.println(board);
+		
+		board.removeTile(3,3);
+		board.removeTile(4,3);
+		
+		System.out.println(board);
+		board.update();
+		System.out.println(board);
+	}
+
+}

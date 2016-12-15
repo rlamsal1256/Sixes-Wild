@@ -1,0 +1,64 @@
+package common.model;
+
+public abstract class AbstractContainer extends AbstractSquare{
+
+	Tile tile=null;
+	ISource fillFrom=null;
+	
+	public AbstractContainer(int row,int column){
+		super(row,column);
+	}
+	
+	public void setFillFrom(ISource source){
+		fillFrom=source;
+	}
+	
+	public boolean setFillFrom(AbstractSquare square){
+		if(square instanceof ISource){
+			this.fillFrom=(ISource)square;
+			return true;
+		}
+		return false;
+	}
+	
+	public ISource getFillFrom(){
+		return fillFrom;
+	}
+	
+	public void removeFillFrom(){
+		fillFrom=null;
+	}
+	
+	/**
+	 * Removes the tile from this square and returns it. This is how moves should remove
+	 * tiles from the board (Except possibly for special moves)
+	 * @return
+	 */
+	public Tile remove(){
+		Tile t=this.tile.copy();
+		this.tile=null;
+		return t;
+	}
+	
+	public final Tile peek(){
+		return this.tile;
+	}
+	
+	public final void setTile(Tile tile) {
+		this.tile = tile;
+	}
+
+	public final boolean hasTile(){
+		return !(this.tile==(null));
+	}
+	
+	public boolean update() {
+		if(tile==null){
+			tile=fillFrom.takeTile();
+			if(tile!=null)
+				return true;
+		}
+		return false;
+	}
+
+}

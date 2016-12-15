@@ -1,0 +1,75 @@
+package player.view;
+
+import javax.swing.JPanel;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.JButton;
+
+import javax.swing.SwingConstants;
+import javax.swing.ImageIcon;
+
+import java.awt.Color;
+
+import player.controllers.SelectLevelController;
+
+public class LevelSelectView extends JPanel {
+
+	/**
+	 * Create the panel.
+	 */
+	public LevelSelectView() {
+		
+		JButton button = new JButton("");
+		button.setIcon(new ImageIcon(LevelSelectView.class.getResource("/resource/lock.png")));
+		button.setHorizontalAlignment(SwingConstants.LEFT);
+		
+		JButton button_1 = new JButton("1");
+		button_1.addMouseListener(new SelectLevelController());
+		button_1.setBackground(new Color(255, 255, 255));
+		button_1.setForeground(Color.BLACK);
+		button_1.setIcon(null);
+		button_1.setHorizontalAlignment(SwingConstants.LEFT);
+		
+		JButton button_2 = new JButton("");
+		button_2.setIcon(new ImageIcon(LevelSelectView.class.getResource("/resource/lock.png")));
+		button_2.setHorizontalAlignment(SwingConstants.LEFT);
+		
+		JButton button_3 = new JButton("");
+		button_3.setIcon(new ImageIcon(LevelSelectView.class.getResource("/resource/lock.png")));
+		button_3.setHorizontalAlignment(SwingConstants.LEFT);
+		
+		JButton button_4 = new JButton("");
+		button_4.setIcon(new ImageIcon(LevelSelectView.class.getResource("/resource/lock.png")));
+		button_4.setHorizontalAlignment(SwingConstants.LEFT);
+		GroupLayout groupLayout = new GroupLayout(this);
+		groupLayout.setHorizontalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(59)
+					.addComponent(button_1, GroupLayout.PREFERRED_SIZE, 41, GroupLayout.PREFERRED_SIZE)
+					.addGap(18)
+					.addComponent(button, GroupLayout.PREFERRED_SIZE, 41, GroupLayout.PREFERRED_SIZE)
+					.addGap(18)
+					.addComponent(button_2, GroupLayout.PREFERRED_SIZE, 41, GroupLayout.PREFERRED_SIZE)
+					.addGap(18)
+					.addComponent(button_3, GroupLayout.PREFERRED_SIZE, 41, GroupLayout.PREFERRED_SIZE)
+					.addGap(18)
+					.addComponent(button_4, GroupLayout.PREFERRED_SIZE, 41, GroupLayout.PREFERRED_SIZE)
+					.addGap(114))
+		);
+		groupLayout.setVerticalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+					.addGap(29)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addComponent(button_3, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
+						.addComponent(button_4, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
+						.addComponent(button_2, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
+						.addComponent(button, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
+						.addComponent(button_1, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE))
+					.addGap(234))
+		);
+		setLayout(groupLayout);
+
+	}
+}

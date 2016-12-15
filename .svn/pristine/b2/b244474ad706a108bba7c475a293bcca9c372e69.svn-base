@@ -1,0 +1,53 @@
+package gameModes.puzzle;
+
+import gameModes.lightning.LightningLevel;
+
+import java.awt.Color;
+import java.util.ArrayList;
+
+import player.model.AbstractGame;
+import common.model.AbstractMove;
+
+/**
+ * @author njpanzarino
+ * @author tjbennett
+ */
+public class PuzzleGame extends AbstractGame{
+	
+	int moves=0;
+
+	public PuzzleGame(PuzzleLevel level) {
+		super(level);
+		
+	}
+	
+	@Override
+	public boolean doMove(AbstractMove move) {
+		if(moves < ((PuzzleLevel)this.getLevel()).getMaxMoves()){
+			if(super.doMove(move)){
+				moves++;
+				return true;
+			}
+		}
+		return false;
+	}
+
+	@Override
+	public ArrayList<String> getFields() {
+		ArrayList<String> out=super.getFields();
+		out.add("Move Count: "+moves);
+		out.add("Remaining: "+(((PuzzleLevel)this.getLevel()).getMaxMoves()-moves));
+		return out;
+	}
+
+	@Override
+	public boolean isOver() {
+		//game is over when the moves are all out 
+		
+		if(moves >= ((PuzzleLevel)this.getLevel()).getMaxMoves()){
+			return true;
+		}
+		return false;
+	}
+	
+}

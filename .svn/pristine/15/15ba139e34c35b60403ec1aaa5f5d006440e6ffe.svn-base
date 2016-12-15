@@ -1,0 +1,64 @@
+package player.view;
+
+import javax.swing.JLayeredPane;
+import javax.swing.JPanel;
+import javax.swing.JLabel;
+
+import java.awt.Font;
+import java.awt.Color;
+
+import javax.swing.JButton;
+
+import player.controllers.ToLevelSelectController;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
+
+public class StartScreenView extends JPanel {
+	
+	JLayeredPane inLayer;
+	
+	PlayerApplication app;
+	
+	/**
+	 * Create the panel.
+	 */
+	public StartScreenView(PlayerApplication app) {
+		setBackground(new Color(51, 153, 255));
+		setLayout(null);
+		
+		JLabel label = new JLabel("sixes");
+		label.setForeground(Color.WHITE);
+		label.setFont(new Font("Dialog", Font.PLAIN, 32));
+		label.setBounds(157, 46, 76, 41);
+		add(label);
+		
+		JLabel label_1 = new JLabel("wild");
+		label_1.setForeground((Color) null);
+		label_1.setFont(new Font("Dialog", Font.PLAIN, 32));
+		label_1.setBounds(235, 46, 59, 41);
+		add(label_1);
+		
+		JButton button = new JButton("Play Game");
+		button.addMouseListener(new ToLevelSelectController());
+		button.setFont(new Font("Dialog", Font.PLAIN, 13));
+		button.setBackground(Color.WHITE);
+		button.setBounds(169, 125, 108, 29);
+		add(button);
+		
+		JButton button_1 = new JButton("Help");
+		button_1.setFont(new Font("Dialog", Font.PLAIN, 13));
+		button_1.setBounds(184, 166, 75, 29);
+		add(button_1);
+		
+		JLabel label_2 = new JLabel("Helene Inc.");
+		label_2.setForeground(Color.WHITE);
+		label_2.setFont(new Font("Dialog", Font.PLAIN, 14));
+		label_2.setBounds(189, 257, 69, 18);
+		add(label_2);
+
+	}
+}

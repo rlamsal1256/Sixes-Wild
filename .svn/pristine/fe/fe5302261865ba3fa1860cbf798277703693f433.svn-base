@@ -1,0 +1,204 @@
+package common.view;
+
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
+
+import common.model.AbstractSquare;
+
+import javax.swing.JLabel;
+
+public abstract class AbstractSquareDrawer<T extends AbstractSquare> {
+	
+	/**
+	 * Square needs to have an Parameterized type so that subclasses can access
+	 * information not common to all AbstractSquares
+	 */
+	protected T square;
+	
+	JLabel lblText;
+	
+	protected int tileHeight;
+	protected int tileWidth;
+	//Fields used to draw squares
+	
+	protected static int borderThickness=1;
+	
+	protected Color background;
+	protected Color foreground;
+	protected Color borderColor;
+	protected String text;
+	protected String subText;
+	protected int numBorders;
+	protected int atX,atY;
+	
+	AbstractSquareDrawer(T square){
+		this.square=square;
+		updateFields();
+	}
+	
+	public final void setSquare(T square){
+		this.square=square;
+		updateFields();
+	}
+	
+	public final void updateFields(){
+		background=setBackground();
+		foreground=setForeground();
+		text=setText();
+		subText=setSubText();
+		borderThickness=setBorderThickness();
+		borderColor=setBorderColor();
+		numBorders=setNumBorders();
+	}
+	
+	/**
+	 * @return number of borders to draw (one inside the other) 
+	 * DEFAULT=1
+	 */
+	public int setNumBorders(){
+		return 1;
+	}
+
+	/**
+	 * @return the thickness of the border (in pixels)
+	 * DEFAULT=1;
+	 */
+	public int setBorderThickness(){
+		return 1;
+	}
+	
+	/**
+	 * @return the color of the border
+	 * DEFAULT=Color.BLACK
+	 */
+	public Color setBorderColor(){
+		return Color.BLACK;
+	}
+	
+	/**
+	 * @return the text to draw in the bottom right corner of the square
+	 * DEFAULT="";
+	 */
+	public String setSubText(){
+		return "";
+	}
+
+	/**
+	 * @return the text to draw in the center of the square
+	 */
+	public abstract String setText();
+
+	/**
+	 * @return the color of the text
+	 */
+	public abstract Color setForeground();
+
+	/**
+	 * @return the color of the backGround
+	 */
+	public abstract Color setBackground();
+	
+	/**
+	 * overridable method to add custom graphics to the square.
+	 * Graphics will be added relative to the top left hand corner of the square
+	 * @param g
+	 * @return
+	 */
+	public void drawMore(Graphics g){
+		
+	}
+
+	public final int getTileHeight() {
+		return tileHeight;
+	}
+
+	public final int getTileWidth() {
+		return tileWidth;
+	}
+
+	public final void setTileSize(int tileWidth, int tileHeight){
+		this.tileWidth=tileWidth;
+		this.tileHeight=tileHeight;
+	}
+	
+	public final void setTilePos(int atX,int atY){
+		this.atX=atX;
+		this.atY=atY;
+	}
+	
+	public final void setBounds(int width, int height){
+		setTileSize(width,height);
+		setTilePos((width)*square.getColumn(),(height)*square.getRow());
+	}
+	
+	public final void setBounds(int x,int y, int width, int height){
+		setTilePos(x,y);
+		setTileSize(width,height);
+	}
+	
+	public final void setBounds(int n, int boardWidth, int boardHeight){
+		int nW=Math.max(0,Math.min(boardWidth%n,square.getColumn()));
+		int nH=Math.max(0,Math.min(boardHeight%n,square.getRow()));
+		
+		this.atX=boardWidth*square.getColumn()/n+nW;
+		this.atY=boardHeight*square.getRow()/n+nH;
+		
+		if(nW+1>0)
+			this.tileWidth=boardWidth/n+1;
+		else
+			this.tileWidth=boardWidth/n;
+		
+		if(nH+1>0)
+			this.tileHeight=boardHeight/n+1;
+		else
+			this.tileHeight=boardHeight/n;
+	}
+	
+	public final void drawOn(Graphics g) {
+		//Update from model before printing.
+		//MAY cause lag? May not be necessary
+		updateFields();
+		
+		g.translate(atX, atY);
+		
+		//DRAW THE SQUAREEEEEEEEEE
+		//drawBackground
+		g.setColor(background);
+		g.fillRect(0, 0, tileWidth, tileHeight);
+		
+		//drawBorders
+		int borderGapFactor=5;
+		g.setColor(borderColor);
+		for(int n=0;n<numBorders;n++){
+			for(int i=0;i<borderThickness;i++){
+				int offset=(n*borderThickness*borderGapFactor)+i;
+				g.drawRect(offset,offset,tileWidth-(offset*2),tileHeight-(offset*2));
+			}
+		}
+		
+		int w,h;
+		//draw text
+		g.setColor(foreground);
+		g.setFont(new Font("Tahoma", Font.PLAIN, Math.min(tileHeight, tileWidth)/2));
+		w=g.getFontMetrics().stringWidth(text);
+		h=g.getFontMetrics().getAscent()-g.getFontMetrics().getDescent();
+		g.drawString(text, (tileWidth-w)/2, (tileHeight+h)/2);
+		
+		g.setFont(new Font("Tahoma", Font.PLAIN, Math.min(tileHeight, tileWidth)/4));
+		w=g.getFontMetrics().stringWidth(subText);
+		h=g.getFontMetrics().getAscent()-g.getFontMetrics().getDescent();
+		int offset=numBorders*borderThickness*borderGapFactor;
+		g.drawString(subText, tileWidth-w-offset, tileHeight-offset);
+		
+//		JLabel l=new JLabel(text);
+//		l.setBounds(0,0,tileWidth,tileHeight);
+//		l.setFont(new Font("Tahoma", Font.PLAIN, 20));//TODO: Modify font size with tile size
+//		l.setHorizontalAlignment(SwingConstants.CENTER);
+//		//l.paintComponent(g);
+//		l.paintAll(g);
+		
+		drawMore(g);
+		g.translate(-atX, -atY);
+	}
+}
